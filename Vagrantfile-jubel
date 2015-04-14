@@ -1,0 +1,138 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  config.vm.define "ylmaster" do |ylmaster|
+
+      config.vm.provider :virtualbox do |vb|
+          vb.customize ["modifyvm", :id, "--memory", "2048", "--cpus", "2"]
+          vb.name = "ylmaster"
+      end
+
+      ylmaster.vm.box = "ubuntu/trusty64"
+      ylmaster.vm.hostname = "ylmaster"
+#      ylmaster.vm.network :forwarded_port, guest: 22 , host: 9601
+      ylmaster.vm.network "private_network", ip: "172.16.0.2"
+
+      ylmaster.vm.synced_folder "salt-master/", "/srv", type: "nfs"
+      ylmaster.bindfs.bind_folder "/srv", \
+                                "/srv", \
+                                perms: "u=rwx:g=rwx:o=rx" , create_as_user: true
+
+  end
+
+  config.vm.define "ylweb1" do |ylweb1|
+
+      config.vm.provider :virtualbox do |vb|
+          vb.customize ["modifyvm", :id, "--memory", "2048", "--cpus", "2"]
+          vb.name = "ylweb1"
+      end
+
+      ylweb1.vm.box = "ubuntu/trusty64"
+      ylweb1.vm.hostname = "ylweb1"
+      ylweb1.vm.network :forwarded_port, guest: 22 , host: 9602
+      ylweb1.vm.network "private_network", ip: "172.16.0.3"
+
+#     ylweb1.vm.synced_folder "nfs-master/", "/srv", type: "nfs"
+#     ylweb1.bindfs.bind_folder "/srv", \
+#                               "/srv", \
+#                               perms: "u=rwx:g=rwx:o=rx" , create_as_user: true
+
+  end
+
+  config.vm.define "ylworker1" do |ylworker1|
+
+      config.vm.provider :virtualbox do |vb|
+          vb.customize ["modifyvm", :id, "--memory", "1024", "--cpus", "2"]
+          vb.name = "ylworker1"
+      end
+
+      ylworker1.vm.box = "ubuntu/trusty64"
+      ylworker1.vm.hostname = "ylworker1"
+      ylworker1.vm.network :forwarded_port, guest: 22 , host: 9603
+      ylworker1.vm.network "private_network", ip: "172.16.0.4"
+
+#     minion.vm.synced_folder "nfs-minion01/", "/srv", type: "nfs"
+#     minion.bindfs.bind_folder "/srv", \
+#                               "/srv", \
+#                               perms: "u=rwx:g=rwx:o=rx" , create_as_user: true
+  end
+
+  config.vm.define "yldb1" do |yldb1|
+
+      config.vm.provider :virtualbox do |vb|
+          vb.customize ["modifyvm", :id, "--memory", "1024", "--cpus", "2"]
+          vb.name = "yldb1"
+      end
+    
+      yldb1.vm.box = "ubuntu/trusty64"
+      yldb1.vm.hostname = "yldb1"
+#     yldb1.vm.network :forwarded_port, guest: 22, host: 2202, disabled: true , id: "ssh"
+      yldb1.vm.network :forwarded_port, guest: 22, host: 9604,  auto_correct: true
+      yldb1.vm.network "private_network", ip: "172.16.0.5"
+
+      yldb1.vm.synced_folder "backup2/", "/srv", type: "nfs"
+      yldb1.bindfs.bind_folder "/srv", \
+                                "/srv", \
+                                perms: "u=rwx:g=rwx:o=rx" , create_as_user: true
+  end
+
+  config.vm.define "ylrmq" do |ylrmq|
+
+      config.vm.provider :virtualbox do |vb|
+          vb.customize ["modifyvm", :id, "--memory", "2048", "--cpus", "2"]
+          vb.name = "ylrmq"
+      end
+    
+      ylrmq.vm.box = "ubuntu/trusty64"
+      ylrmq.vm.hostname = "ylrmq"
+      ylrmq.vm.network "private_network", ip: "172.16.0.6"
+
+      ylrmq.vm.synced_folder "backups/", "/srv", type: "nfs"
+      ylrmq.bindfs.bind_folder "/srv", \
+                                "/srv", \
+                                perms: "u=rwx:g=rwx:o=rx" , create_as_user: true
+
+  end
+
+  config.vm.define "ylvarnish1" do |ylvarnish1|
+
+      config.vm.provider :virtualbox do |vb|
+          vb.customize ["modifyvm", :id, "--memory", "1024", "--cpus", "2"]
+          vb.name = "ylvarnish1"
+      end
+    
+      ylvarnish1.vm.box = "ubuntu/trusty64"
+      ylvarnish1.vm.hostname = "ylvarnish1"
+      ylvarnish1.vm.network "private_network", ip: "172.16.0.7"
+      ylvarnish1.vm.synced_folder "varnish1/", "/srv", type: "nfs"
+      ylvarnish1.bindfs.bind_folder "/srv", \
+                                "/srv", \
+                                perms: "u=rwx:g=rwx:o=rx" , create_as_user: true
+
+  end
+
+  config.vm.define "ylvarnish2" do |ylvarnish2|
+
+      config.vm.provider :virtualbox do |vb|
+          vb.customize ["modifyvm", :id, "--memory", "1024", "--cpus", "2"]
+          vb.name = "ylvarnish2"
+      end
+
+#      ylvarnish2.vm.network "public_network", ip: "192.168.0.100", 
+#      bridge: 'en0: Wi-Fi (AirPort)'
+    
+      ylvarnish2.vm.box = "ubuntu/trusty64"
+      ylvarnish2.vm.hostname = "ylvarnish2"
+      ylvarnish2.vm.network "private_network", ip: "172.16.0.8"
+      ylvarnish2.vm.synced_folder "varnish2/", "/srv", type: "nfs"
+      ylvarnish2.bindfs.bind_folder "/srv", \
+                                "/srv", \
+                                perms: "u=rwx:g=rwx:o=rx" , create_as_user: true
+
+  end
+
+end

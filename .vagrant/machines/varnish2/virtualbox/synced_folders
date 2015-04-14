@@ -1,0 +1,1 @@
+{"nfs":{"/srv":{"type":"nfs","guestpath":"/srv","hostpath":"/Users/johny/test/varnish2","disabled":false,"map_uid":501,"map_gid":20,"nfs_udp":true,"nfs_version":3,"uuid":"3192513217"}},"virtualbox":{"/vagrant":{"guestpath":"/vagrant","hostpath":"/Users/johny/test","disabled":false}}}
