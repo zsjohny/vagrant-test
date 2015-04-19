@@ -27,7 +27,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "web1" do |web1|
 
       config.vm.provider :virtualbox do |vb|
-          vb.customize ["modifyvm", :id, "--memory", "2048", "--cpus", "2"]
+          vb.customize ["modifyvm", :id, "--memory", "1024", "--cpus", "2"]
           vb.name = "web1"
       end
 
@@ -83,7 +83,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "rmq" do |rmq|
 
       config.vm.provider :virtualbox do |vb|
-          vb.customize ["modifyvm", :id, "--memory", "2048", "--cpus", "2"]
+          vb.customize ["modifyvm", :id, "--memory", "1024", "--cpus", "2"]
           vb.name = "rmq"
       end
 
