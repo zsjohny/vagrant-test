@@ -27,7 +27,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "web1" do |web1|
 
       config.vm.provider :virtualbox do |vb|
-          vb.customize ["modifyvm", :id, "--memory", "1024", "--cpus", "2"]
+          vb.customize ["modifyvm", :id, "--memory", "2048", "--cpus", "2"]
           vb.name = "web1"
       end
 
@@ -83,7 +83,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "rmq" do |rmq|
 
       config.vm.provider :virtualbox do |vb|
-          vb.customize ["modifyvm", :id, "--memory", "1024", "--cpus", "2"]
+          vb.customize ["modifyvm", :id, "--memory", "2048", "--cpus", "2"]
           vb.name = "rmq"
       end
 
@@ -136,6 +136,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
   config.vm.define "jenkins" do |jenkins|
 
+<<<<<<< HEAD
       config.vm.provider :virtualbox do |vb|
           vb.customize ["modifyvm", :id, "--memory", "1024", "--cpus", "2"]
           vb.name = "jenkins"
@@ -153,4 +154,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                                 perms: "u=rwx:g=rwx:o=rx" , create_as_user: true
 
   end
+=======
+>>>>>>> parent of 9e95293... mem  1024
 end
