@@ -115,21 +115,21 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   end
 
-  config.vm.define "varnish2" do |varnish2|
+  config.vm.define "sonar.staging.sentry.ui" do |sonar.staging.sentry.ui|
 
       config.vm.provider :virtualbox do |vb|
           vb.customize ["modifyvm", :id, "--memory", "1024", "--cpus", "2"]
-          vb.name = "varnish2"
+          vb.name = "sonar.staging.sentry.ui"
       end
 
-#      varnish2.vm.network "private_network", ip: "172.168.0.100",
+#      sonar.staging.sentry.ui.vm.network "private_network", ip: "172.168.0.100",
 #      bridge: 'en0: Wi-Fi (AirPort)'
 
-      varnish2.vm.box = "ubuntu/trusty64"
-      varnish2.vm.hostname = "varnish2"
-      varnish2.vm.network "private_network", ip: "172.168.1.26"
-      varnish2.vm.synced_folder "varnish2/", "/srv", type: "nfs"
-      varnish2.bindfs.bind_folder "/srv", \
+      sonar.staging.sentry.ui.vm.box = "ubuntu/trusty64"
+      sonar.staging.sentry.ui.vm.hostname = "sonar.staging.sentry.ui"
+      sonar.staging.sentry.ui.vm.network "private_network", ip: "172.168.1.26"
+      sonar.staging.sentry.ui.vm.synced_folder "sonar.staging.sentry.ui/", "/srv", type: "nfs"
+      sonar.staging.sentry.ui.bindfs.bind_folder "/srv", \
                                 "/srv", \
                                 perms: "u=rwx:g=rwx:o=rx" , create_as_user: true
 
