@@ -1,1 +1,1 @@
-{"nfs":{"/srv":{"type":"nfs","guestpath":"/srv","hostpath":"/Users/johny/test/db1","disabled":false,"map_uid":501,"map_gid":20,"nfs_udp":true,"nfs_version":3,"uuid":"3955527895"}},"virtualbox":{"/vagrant":{"guestpath":"/vagrant","hostpath":"/Users/johny/test","disabled":false}}}
+{"nfs":{"/srv":{"type":"nfs","guestpath":"/srv","hostpath":"/Users/Johny/vagrant-test/db1","disabled":false,"map_uid":501,"map_gid":20,"nfs_udp":true,"nfs_version":3,"uuid":"2477043254"}},"virtualbox":{"/vagrant":{"guestpath":"/vagrant","hostpath":"/Users/Johny/vagrant-test","disabled":false}}}
