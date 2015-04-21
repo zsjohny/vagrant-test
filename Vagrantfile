@@ -61,21 +61,21 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                                perms: "u=rwx:g=rwx:o=rx" , create_as_user: true
   end
 
-  config.vm.define "db1" do |db1|
+  config.vm.define "celery" do |celery|
 
       config.vm.provider :virtualbox do |vb|
           vb.customize ["modifyvm", :id, "--memory", "1024", "--cpus", "2"]
-          vb.name = "db1"
+          vb.name = "celery"
       end
 
-      db1.vm.box = "ubuntu/trusty64"
-      db1.vm.hostname = "db1"
-#     db1.vm.network :forwarded_port, guest: 22, host: 2202, disabled: true , id: "ssh"
-#     db1.vm.network :forwarded_port, guest: 22, host: 9604,  auto_correct: true
-      db1.vm.network "private_network", ip: "172.168.1.23"
+      celery.vm.box = "ubuntu/trusty64"
+      celery.vm.hostname = "celery"
+#     celery.vm.network :forwarded_port, guest: 22, host: 2202, disabled: true , id: "ssh"
+#     celery.vm.network :forwarded_port, guest: 22, host: 9604,  auto_correct: true
+      celery.vm.network "private_network", ip: "172.168.1.23"
 
-      db1.vm.synced_folder "db1/", "/srv", type: "nfs"
-      db1.bindfs.bind_folder "/srv", \
+      celery.vm.synced_folder "celery/", "/srv", type: "nfs"
+      celery.bindfs.bind_folder "/srv", \
                             "/srv", \
                                 perms: "u=rwx:g=rwx:o=rx" , create_as_user: true
   end
@@ -115,28 +115,27 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   end
 
-  config.vm.define "sonar.staging.sentry.ui" do |sonar.staging.sentry.ui|
+  config.vm.define "staging" do |staging|
 
       config.vm.provider :virtualbox do |vb|
           vb.customize ["modifyvm", :id, "--memory", "1024", "--cpus", "2"]
-          vb.name = "sonar.staging.sentry.ui"
+          vb.name = "staging"
       end
 
-#      sonar.staging.sentry.ui.vm.network "private_network", ip: "172.168.0.100",
+#      staging.vm.network "private_network", ip: "172.168.0.100",
 #      bridge: 'en0: Wi-Fi (AirPort)'
 
-      sonar.staging.sentry.ui.vm.box = "ubuntu/trusty64"
-      sonar.staging.sentry.ui.vm.hostname = "sonar.staging.sentry.ui"
-      sonar.staging.sentry.ui.vm.network "private_network", ip: "172.168.1.26"
-      sonar.staging.sentry.ui.vm.synced_folder "sonar.staging.sentry.ui/", "/srv", type: "nfs"
-      sonar.staging.sentry.ui.bindfs.bind_folder "/srv", \
+      staging.vm.box = "ubuntu/trusty64"
+      staging.vm.hostname = "staging"
+      staging.vm.network "private_network", ip: "172.168.1.26"
+      staging.vm.synced_folder "staging/", "/srv", type: "nfs"
+      staging.bindfs.bind_folder "/srv", \
                                 "/srv", \
                                 perms: "u=rwx:g=rwx:o=rx" , create_as_user: true
 
   end
   config.vm.define "jenkins" do |jenkins|
 
-<<<<<<< HEAD
       config.vm.provider :virtualbox do |vb|
           vb.customize ["modifyvm", :id, "--memory", "1024", "--cpus", "2"]
           vb.name = "jenkins"
@@ -154,6 +153,4 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                                 perms: "u=rwx:g=rwx:o=rx" , create_as_user: true
 
   end
-=======
->>>>>>> parent of 9e95293... mem  1024
 end
